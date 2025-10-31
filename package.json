@@ -1,0 +1,25 @@
+{
+  "name": "devops_project_cinemei",
+  "version": "1.0.0",
+  "description": "Group 2 DEVOPS Project about Movies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GohJerrill/DEVOPS_Project_CineMEI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GohJerrill/DEVOPS_Project_CineMEI/issues"
+  },
+  "homepage": "https://github.com/GohJerrill/DEVOPS_Project_CineMEI#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security"
+  }
+}
