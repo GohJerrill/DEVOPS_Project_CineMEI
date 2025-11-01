@@ -1,3 +1,6 @@
+#JSON Database Files
+utils/MovieDatabase.json
+
 # Logs
 logs
 *.log

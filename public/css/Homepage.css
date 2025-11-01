@@ -366,7 +366,7 @@ body {
 }
 
 /* Grid container */
-.Movies_Container {
+#Movies_Container {
     max-width: 1200px;
     margin: 2rem auto;
     display: grid;
@@ -542,6 +542,29 @@ body {
     font-weight: 900;
 
 }
+
+
+.Default_Message {
+    justify-content: center;
+    text-align: center;
+    color: #ccc;
+    padding: 50px;
+    font-size: 1.2rem;
+}
+
+.Error_Image {
+    width: 100px;
+    height:100px;
+}
+
+.default_Text p {
+    color:white;
+    background-color: #3b2d2d;
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 10px;
+}
+
 
 @media (max-width: 1024px) {
 

@@ -1,3 +1,86 @@
+async function DisplayMovies() {
+    const Container = document.getElementById("Movies_Container");
+    const Error_Container = document.getElementById("Default_Message")
+
+    function showDefaultMessage(message) {
+        Error_Container.innerHTML = `
+      <div class="default_Text">
+        <img class = "Error_Image" src = "./images/Error.png" alt = "">
+        <p>${message}</p>
+      </div>
+    `;
+    }
+
+
+    try {
+        const response = await fetch("/View_Movies");
+
+        if (response.ok) {
+            const Movies = await response.json();
+
+            if (!Array.isArray(Movies) || Movies.length === 0) {
+                showDefaultMessage("No movies found in the database.");
+                return;
+            }
+
+            Container.innerHTML = "";
+            for (let i = 0; i < Movies.length; i++) {
+
+                let MoviesBox =
+
+                    `
+
+                <div class="box">
+
+                    <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
+
+
+                    <div class="box-img">
+                        <img src="./images/${Movies[i].Image}" alt="">
+                    </div>
+
+                    <div class="overlay">
+                        <h3 class="overlay-title">${Movies[i].Title}</h3>
+                        <p class="overlay-desc">
+                            ${Movies[i].Description}
+                        </p>
+                        <p><span class="Duration">Duration: </span>${Movies[i].Duration}</p>
+                        <p><span class="Genre">Genre: </span>${Movies[i].Genre}</p>
+                    </div>
+
+                    <div class="Stars_Rating">
+                        <div class="Stars">
+                            <p>${Movies[i].Movie_Rating}</p>
+                            <img src="./images/star.png" alt="">
+                        </div>
+                        <p class="Rating">${Movies[i].Age_Rating}</p>
+                    </div>
+
+                    <h3 class="Title">${Movies[i].Title}</h3>
+                    <span class="year">${Movies[i].Year}</span>
+                </div>
+                
+                `
+
+                Container.innerHTML += MoviesBox;
+
+            }
+        } else {
+            showDefaultMessage("Failed to load movies. Please try again later.");
+            return;
+        }
+    } catch (error) {
+        console.log("Error loading movies: ", error);
+        showDefaultMessage("An unexpected error occurred while loading movies.");
+    }
+
+}
+
+window.onload = async function () {
+    DisplayMovies()
+}
+
+
 const dropdowns = document.querySelectorAll(".dropdown");
 
 
