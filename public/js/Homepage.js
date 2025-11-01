@@ -1,6 +1,5 @@
-async function DisplayMovies() {
-    const Container = document.getElementById("Movies_Container");
-    const Error_Container = document.getElementById("Default_Message")
+const Container = document.getElementById("Movies_Container");
+const Error_Container = document.getElementById("Default_Message")
 
     function showDefaultMessage(message) {
         Error_Container.innerHTML = `
@@ -11,6 +10,8 @@ async function DisplayMovies() {
     `;
     }
 
+
+async function DisplayMovies() {
 
     try {
         const response = await fetch("/View_Movies");
