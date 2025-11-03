@@ -11,6 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static("./public"));
+
+//add api for movie review
+const { addMovie } = require('./utils/AddMovieReview')
+app.post('/add-movie-review', addMovie)
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
 })

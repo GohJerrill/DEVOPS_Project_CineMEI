@@ -2,7 +2,6 @@ class Movie_Structure {
     constructor(Title, Age_Rating, Movie_Rating, Genre, Duration, Year, Description, Image) {
 
         const random = Math.floor(Math.random() * 1000);
-        this.id = timestamp + "" + random.toString().padStart(3, '0');
         this.Title = Title;
         this.Age_Rating = Age_Rating;
         this.Movie_Rating = Movie_Rating;
@@ -12,6 +11,7 @@ class Movie_Structure {
         this.Description = Description;
         this.Image = Image;
         const timestamp = new Date().getTime();
+        this.id = timestamp + "" + random.toString().padStart(3, '0');
     }
 }
 module.exports = { Movie_Structure };

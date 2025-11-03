@@ -1,3 +1,5 @@
+//frontend for Jerrill's viewing feature
+
 const dropdowns = document.querySelectorAll(".dropdown");
 
 
@@ -173,7 +175,5 @@ dropdowns.forEach(dropdown => {
     });
 })();
 
-
-
-
+//frontend for Esmond's adding feature
 
