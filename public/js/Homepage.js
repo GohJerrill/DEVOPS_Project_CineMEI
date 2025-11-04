@@ -147,6 +147,10 @@ dropdowns.forEach(dropdown => {
 });
 
 
+const chipGroup = document.querySelector('.Filter_Buttons');
+const chips = chipGroup ? chipGroup.querySelectorAll('button') : [];
+let activeChip = null;
+
 
 chips.forEach(btn => {
     btn.addEventListener('click', () => {
