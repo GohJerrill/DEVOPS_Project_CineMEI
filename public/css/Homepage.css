@@ -83,7 +83,7 @@ body {
     width: 80%;
 }
 
-.search-input {
+#search-input {
     font-size: 20px;
     font-family: Inter;
     color: white;
@@ -95,7 +95,7 @@ body {
     height: 100%;
 }
 
-.search-input::placeholder {
+#search-input::placeholder {
     color: #B3B3B3;
 }
 
@@ -563,8 +563,8 @@ body {
 }
 
 .Error_Image {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
 }

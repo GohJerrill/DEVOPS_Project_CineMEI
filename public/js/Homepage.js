@@ -1,71 +1,93 @@
 const Container = document.getElementById("Movies_Container");
-const Error_Container = document.getElementById("Default_Message")
+const SearchInput = document.getElementById("search-input");
 
-    function showDefaultMessage(message) {
-        Error_Container.innerHTML = `
-      <div class="default_Text">
-        <img class = "Error_Image" src = "./images/Error.png" alt = "">
-        <p>${message}</p>
-      </div>
-    `;
+let CurrentSortMode = "All"; // "All" | "Best Rated"
+
+function showDefaultMessage(message) {
+    Container.innerHTML = `
+    <div class="default_Text">
+      <img class="Error_Image" src="./images/Error.png" alt="">
+      <p>${message}</p>
+    </div>
+  `;
+}
+
+function RenderMovie(Movies) {
+    if (!Movies.length) {
+        showDefaultMessage("No movies match your search.");
+        return;
     }
 
+    Container.innerHTML = "";
+    for (let i = 0; i < Movies.length; i++) {
+        const M = Movies[i];
+        Container.innerHTML += `
 
+        <div class="box">
+            <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
+            <div class="box-img">
+            <img src="./images/${M.Image}" alt="">
+            </div>
+            <div class="overlay">
+            <h3 class="overlay-title">${M.Title}</h3>
+            <p class="overlay-desc">${M.Description}</p>
+            <p><span class="Duration">Duration: </span>${M.Duration}</p>
+            <p><span class="Genre">Genre: </span>${M.Genre}</p>
+            </div>
+            <div class="Stars_Rating">
+            <div class="Stars">
+                <p>${M.Movie_Rating}</p>
+                <img src="./images/star.png" alt="">
+            </div>
+            <p class="Rating">${M.Age_Rating}</p>
+            </div>
+            <h3 class="Title">${M.Title}</h3>
+            <span class="year">${M.Year}</span>
+        </div>
+        `;
+
+    }
+}
+
+// --- Helpers to recompute the view every time ---
+function getBaseFiltered() {
+    const Search = SearchInput.value.toLowerCase().trim();
+    if (!Search) return [...AllMovies];
+    return AllMovies.filter(m => m.Title.toLowerCase().includes(Search));
+}
+
+function applySearchAndSort() {
+    let list = getBaseFiltered();
+
+    if (list.length === 0) {
+        showDefaultMessage(`No movies found matching "${SearchInput.value.trim()}"`);
+        return;
+    }
+
+    if (CurrentSortMode === "Best Rated") {
+        list = [...list].sort((a, b) => b.Movie_Rating - a.Movie_Rating);
+    }
+
+    RenderMovie(list);
+}
+
+// --- Initial fetch ---
 async function DisplayMovies() {
 
     try {
         const response = await fetch("/View_Movies");
 
         if (response.ok) {
-            const Movies = await response.json();
+            const MoviesData = await response.json();
 
-            if (!Array.isArray(Movies) || Movies.length === 0) {
+            if (!Array.isArray(MoviesData) || MoviesData.length === 0) {
                 showDefaultMessage("No movies found in the database.");
                 return;
             }
 
-            Container.innerHTML = "";
-            for (let i = 0; i < Movies.length; i++) {
+            AllMovies = MoviesData
+            RenderMovie(AllMovies)
 
-                let MoviesBox =
-
-                    `
-
-                <div class="box">
-
-                    <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
-
-
-                    <div class="box-img">
-                        <img src="./images/${Movies[i].Image}" alt="">
-                    </div>
-
-                    <div class="overlay">
-                        <h3 class="overlay-title">${Movies[i].Title}</h3>
-                        <p class="overlay-desc">
-                            ${Movies[i].Description}
-                        </p>
-                        <p><span class="Duration">Duration: </span>${Movies[i].Duration}</p>
-                        <p><span class="Genre">Genre: </span>${Movies[i].Genre}</p>
-                    </div>
-
-                    <div class="Stars_Rating">
-                        <div class="Stars">
-                            <p>${Movies[i].Movie_Rating}</p>
-                            <img src="./images/star.png" alt="">
-                        </div>
-                        <p class="Rating">${Movies[i].Age_Rating}</p>
-                    </div>
-
-                    <h3 class="Title">${Movies[i].Title}</h3>
-                    <span class="year">${Movies[i].Year}</span>
-                </div>
-                
-                `
-
-                Container.innerHTML += MoviesBox;
-
-            }
         } else {
             showDefaultMessage("Failed to load movies. Please try again later.");
             return;
@@ -77,18 +99,54 @@ async function DisplayMovies() {
 
 }
 
-window.onload = async function () {
-    DisplayMovies()
-}
 
+window.onload = DisplayMovies;
 
+// --- Search: always recompute + respect current sort mode ---
+SearchInput.addEventListener("input", applySearchAndSort);
+
+// --- Dropdown: set mode, then recompute ---
 const dropdowns = document.querySelectorAll(".dropdown");
+dropdowns.forEach(dropdown => {
+    const select = dropdown.querySelector(".select");
+    const caret = dropdown.querySelector(".caret");
+    const menu = dropdown.querySelector(".menu");
+    const options = dropdown.querySelectorAll(".menu li");
+    const selected = dropdown.querySelector(".selected");
+
+    select.addEventListener("click", () => {
+        select.classList.toggle("select-clicked");
+        caret.classList.toggle("caret-rotate");
+        menu.classList.toggle("menu-open");
+    });
+
+    options.forEach(option => {
+        option.addEventListener("click", () => {
+            selected.innerText = option.innerText;
+            options.forEach(o => o.classList.remove("active"));
+            option.classList.add("active");
+
+            // set sort mode and recompute from source + current search
+            CurrentSortMode = option.innerText.trim(); // "All" or "Best Rated"
+            applySearchAndSort();
+
+            // close dropdown
+            select.classList.remove("select-clicked");
+            caret.classList.remove("caret-rotate");
+            menu.classList.remove("menu-open");
+        });
+    });
+
+    window.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target)) {
+            select.classList.remove("select-clicked");
+            caret.classList.remove("caret-rotate");
+            menu.classList.remove("menu-open");
+        }
+    });
+});
 
 
-const chipGroup = document.querySelector('.Filter_Buttons');
-const chips = chipGroup.querySelectorAll('button');
-
-let activeChip = null;
 
 chips.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -115,47 +173,6 @@ chips.forEach(btn => {
         console.log('Selected age rating:', btn.dataset.name);
     });
 });
-
-
-
-dropdowns.forEach(dropdown => {
-    const select = dropdown.querySelector(".select");
-    const caret = dropdown.querySelector(".caret");
-    const menu = dropdown.querySelector(".menu");
-    const options = dropdown.querySelectorAll(".menu li");
-    const selected = dropdown.querySelector(".selected");
-
-    select.addEventListener("click", () => {
-        select.classList.toggle("select-clicked");
-        caret.classList.toggle("caret-rotate");
-        menu.classList.toggle("menu-open");
-    });
-
-
-    options.forEach(option => {
-        option.addEventListener("click", () => {
-            selected.innerText = option.innerText;
-            select.classList.remove("select-clicked");
-            caret.classList.remove("caret-rotate");
-            menu.classList.remove("menu-open");
-
-
-            options.forEach(o => o.classList.remove("active"));
-            option.classList.add("active");
-        });
-    });
-
-
-    window.addEventListener("click", (e) => {
-        if (!dropdown.contains(e.target)) {
-            select.classList.remove("select-clicked");
-            caret.classList.remove("caret-rotate");
-            menu.classList.remove("menu-open");
-        }
-    });
-});
-
-
 
 
 
