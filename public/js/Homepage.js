@@ -1,18 +1,27 @@
+
 const Container = document.getElementById("Movies_Container");
 const SearchInput = document.getElementById("search-input");
+const chipGroup = document.querySelector(".Filter_Buttons");
+let selectedGenres = new Set();
 
-let CurrentSortMode = "All"; // "All" | "Best Rated"
 
+let AllMovies = [];
+let CurrentSortMode = "All";
+let activeChip = null;
+
+
+// Show default "no results" message if got error or like dosent match filters baby.
 function showDefaultMessage(message) {
     Container.innerHTML = `
     <div class="default_Text">
       <img class="Error_Image" src="./images/Error.png" alt="">
       <p>${message}</p>
-    </div>
-  `;
+    </div>`;
 }
 
+// Render all movies on screen
 function RenderMovie(Movies) {
+
     if (!Movies.length) {
         showDefaultMessage("No movies match your search.");
         return;
@@ -49,29 +58,56 @@ function RenderMovie(Movies) {
     }
 }
 
-// --- Helpers to recompute the view every time ---
-function getBaseFiltered() {
-    const Search = SearchInput.value.toLowerCase().trim();
-    if (!Search) return [...AllMovies];
-    return AllMovies.filter(m => m.Title.toLowerCase().includes(Search));
-}
 
-function applySearchAndSort() {
-    let list = getBaseFiltered();
+function applyAllFilters() {
 
-    if (list.length === 0) {
-        showDefaultMessage(`No movies found matching "${SearchInput.value.trim()}"`);
-        return;
+    let list = [...AllMovies];
+
+    // --- Search Filter OHHH YEAHHHHHHHHHHH ---
+    const search = SearchInput.value.toLowerCase().trim();
+    if (search) {
+        list = list.filter(m => m.Title.toLowerCase().includes(search));
     }
 
+    // --- Age Rating Filter SIUUUU ---
+    const selectedRating = document.body.dataset.ageRating;
+    if (selectedRating) {
+        list = list.filter(m => m.Age_Rating.toLowerCase() === selectedRating.toLowerCase());
+    }
+
+    // --- Genre Filter BABY ---
+    if (selectedGenres.size > 0) {
+        list = list.filter(m => {
+            const movieGenres = Array.isArray(m.Genre)
+                ? m.Genre.map(g => g.toLowerCase())
+                : m.Genre.toLowerCase();
+            return Array.from(selectedGenres).some(sel =>
+                movieGenres.includes(sel.toLowerCase())
+            );
+        });
+    }
+
+
+    // --- Sort Filter time ---
     if (CurrentSortMode === "Best Rated") {
-        list = [...list].sort((a, b) => b.Movie_Rating - a.Movie_Rating);
+        list.sort((a, b) => b.Movie_Rating - a.Movie_Rating);
     }
 
-    RenderMovie(list);
+    // --- Display HEHEHEEH ---
+    if (list.length === 0) {
+        const msg =
+            selectedRating || selectedGenres.size > 0
+                ? "No movies found for the selected filters."
+                : "No movies match your search.";
+        showDefaultMessage(msg);
+    } else {
+        RenderMovie(list);
+    }
+
+
 }
 
-// --- Initial fetch ---
+
 async function DisplayMovies() {
 
     try {
@@ -99,15 +135,7 @@ async function DisplayMovies() {
 
 }
 
-
-window.onload = DisplayMovies;
-
-// --- Search: always recompute + respect current sort mode ---
-SearchInput.addEventListener("input", applySearchAndSort);
-
-// --- Dropdown: set mode, then recompute ---
-const dropdowns = document.querySelectorAll(".dropdown");
-dropdowns.forEach(dropdown => {
+document.querySelectorAll(".dropdown").forEach(dropdown => {
     const select = dropdown.querySelector(".select");
     const caret = dropdown.querySelector(".caret");
     const menu = dropdown.querySelector(".menu");
@@ -125,19 +153,15 @@ dropdowns.forEach(dropdown => {
             selected.innerText = option.innerText;
             options.forEach(o => o.classList.remove("active"));
             option.classList.add("active");
-
-            // set sort mode and recompute from source + current search
-            CurrentSortMode = option.innerText.trim(); // "All" or "Best Rated"
-            applySearchAndSort();
-
-            // close dropdown
+            CurrentSortMode = option.innerText.trim();
+            applyAllFilters(); // unified filter
             select.classList.remove("select-clicked");
             caret.classList.remove("caret-rotate");
             menu.classList.remove("menu-open");
         });
     });
 
-    window.addEventListener("click", (e) => {
+    window.addEventListener("click", e => {
         if (!dropdown.contains(e.target)) {
             select.classList.remove("select-clicked");
             caret.classList.remove("caret-rotate");
@@ -147,62 +171,52 @@ dropdowns.forEach(dropdown => {
 });
 
 
-const chipGroup = document.querySelector('.Filter_Buttons');
-const chips = chipGroup ? chipGroup.querySelectorAll('button') : [];
-let activeChip = null;
-
-
-chips.forEach(btn => {
-    btn.addEventListener('click', () => {
-
-        if (activeChip === btn) {
-            btn.classList.remove('is-active');
-            btn.setAttribute('aria-checked', 'false');
-            activeChip = null;
-            document.body.dataset.ageRating = '';
-            return;
-        }
-
-        if (activeChip) {
-            activeChip.classList.remove('is-active');
-            activeChip.setAttribute('aria-checked', 'false');
-        }
-
-        // activate current
-        btn.classList.add('is-active');
-        btn.setAttribute('aria-checked', 'true');
-        activeChip = btn;
-
-        document.body.dataset.ageRating = btn.dataset.name;
-        console.log('Selected age rating:', btn.dataset.name);
+if (chipGroup) {
+    const chips = chipGroup.querySelectorAll("button");
+    chips.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (activeChip === btn) {
+                btn.classList.remove("is-active");
+                btn.setAttribute("aria-checked", "false");
+                activeChip = null;
+                document.body.dataset.ageRating = "";
+            } else {
+                if (activeChip) {
+                    activeChip.classList.remove("is-active");
+                    activeChip.setAttribute("aria-checked", "false");
+                }
+                btn.classList.add("is-active");
+                btn.setAttribute("aria-checked", "true");
+                activeChip = btn;
+                document.body.dataset.ageRating = btn.dataset.name;
+            }
+            applyAllFilters();
+        });
     });
-});
+}
+
+SearchInput.addEventListener("input", applyAllFilters);
 
 
-
-// ===== Genre Multi-Select (Inline Chips) =====
-(function () {
-    const multi = document.querySelector('.genre-multiselect');
+function GenreFilter() {
+    const multi = document.querySelector(".genre-multiselect");
     if (!multi) return;
 
-    const inputBox = multi.querySelector('.genre-input');
-    const caret = inputBox.querySelector('.caret');
-    const options = multi.querySelector('.genre-options');
-    const listItems = Array.from(options.querySelectorAll('li'));
-    const chipsContainer = inputBox.querySelector('.chips-container');
-    const placeholder = inputBox.querySelector('.placeholder');
-    const selectedGenres = new Set();
+    const inputBox = multi.querySelector(".genre-input");
+    const options = multi.querySelector(".genre-options");
+    const listItems = Array.from(options.querySelectorAll("li"));
+    const chipsContainer = inputBox.querySelector(".chips-container");
+    const placeholder = inputBox.querySelector(".placeholder");
 
-
-    inputBox.addEventListener('click', () => {
-        inputBox.classList.toggle('open');
-        options.classList.toggle('show');
+    inputBox.addEventListener("click", () => {
+        inputBox.classList.toggle("open");
+        options.classList.toggle("show");
     });
 
-    // Handle option click
+
     listItems.forEach(li => {
-        const checkbox = li.querySelector('input');
-        li.addEventListener('click', () => {
+        const checkbox = li.querySelector("input");
+        li.addEventListener("click", () => {
             const genre = li.dataset.value;
             checkbox.checked = !checkbox.checked;
 
@@ -210,75 +224,78 @@ chips.forEach(btn => {
             else selectedGenres.delete(genre);
 
             renderChips();
+            applyAllFilters();
         });
     });
 
 
     function renderChips() {
-        chipsContainer.innerHTML = '';
+        chipsContainer.innerHTML = "";
         const all = Array.from(selectedGenres);
-        placeholder.style.display = all.length ? 'none' : 'block';
+        placeholder.style.display = all.length ? "none" : "block";
 
-        // Create each chip
         all.forEach(g => {
-            const chip = document.createElement('div');
-            chip.className = 'genre-chip';
+            const chip = document.createElement("div");
+            chip.className = "genre-chip";
             chip.innerHTML = `${g} <button type="button" aria-label="Remove ${g}">×</button>`;
-            chip.querySelector('button').addEventListener('click', e => {
+            chip.querySelector("button").addEventListener("click", e => {
                 e.stopPropagation();
-                selectedGenres.delete(g);
+                selectedGenres.delete(g); // ✅ correct lowercase
                 const li = listItems.find(l => l.dataset.value === g);
-                if (li) li.querySelector('input').checked = false;
+                if (li) li.querySelector("input").checked = false;
                 renderChips();
+                applyAllFilters();
             });
             chipsContainer.appendChild(chip);
         });
 
-
-        requestAnimationFrame(checkOverflow);
+        requestAnimationFrame(checkOverflow); 
     }
+
 
     function checkOverflow() {
         const chips = Array.from(chipsContainer.children);
         if (chips.length === 0) return;
 
-        const availableWidth = inputBox.clientWidth - 80;
+        const availableWidth = inputBox.clientWidth - 100; 
         let total = 0;
         let visibleCount = 0;
 
         chips.forEach(chip => {
-            const chipWidth = chip.offsetWidth + 6;
+            const chipWidth = chip.offsetWidth + 6; 
             total += chipWidth;
             if (total < availableWidth) {
-                chip.style.display = 'flex';
+                chip.style.display = "flex";
                 visibleCount++;
             } else {
-                chip.style.display = 'none';
+                chip.style.display = "none";
             }
         });
 
-        const hiddenCount = chips.length - visibleCount;
-
-        const oldCounter = chipsContainer.querySelector('.genre-counter');
+   
+        const oldCounter = chipsContainer.querySelector(".genre-counter");
         if (oldCounter) oldCounter.remove();
 
+
+        const hiddenCount = chips.length - visibleCount;
         if (hiddenCount > 0) {
-            const counter = document.createElement('div');
-            counter.className = 'genre-chip genre-counter';
+            const counter = document.createElement("div");
+            counter.className = "genre-chip genre-counter";
             counter.textContent = `+${hiddenCount}`;
             chipsContainer.appendChild(counter);
         }
     }
 
-    window.addEventListener('click', e => {
+    window.addEventListener("click", e => {
         if (!multi.contains(e.target)) {
-            inputBox.classList.remove('open');
-            options.classList.remove('show');
+            inputBox.classList.remove("open");
+            options.classList.remove("show");
         }
     });
-})();
+}
 
 
-
-
-
+window.onload = () => {
+    DisplayMovies();
+    GenreFilter();
+};
