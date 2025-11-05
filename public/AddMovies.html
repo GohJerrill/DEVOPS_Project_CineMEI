@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body onload="removeValue()">
 
     <!-- Header -->
     <div class='navbar'>
@@ -111,7 +111,7 @@
                 <div class="ImgBox">
                     <div class="detail8">
                         <img class="Image" src="./images/upload_image.png" alt=""><br>
-                        <text class="forminput8">Upload Image</text>
+                        <text class="forminput8" id="imageurl">Upload Image</text>
                     </div>
                 </div>
             </label><br>
@@ -122,7 +122,7 @@
         </form>
 
         <div class="Centralize">
-            <button class="Submit_Button">
+            <button class="Submit_Button" onclick="submitNewReview()">
                 <div class="flex">
                     <img class="Submit" src="./images/submit.png" alt="" />
                     <p class="button_Text">Submit</p>
