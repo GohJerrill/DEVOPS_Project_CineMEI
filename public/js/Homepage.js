@@ -240,7 +240,7 @@ function GenreFilter() {
             chip.innerHTML = `${g} <button type="button" aria-label="Remove ${g}">×</button>`;
             chip.querySelector("button").addEventListener("click", e => {
                 e.stopPropagation();
-                selectedGenres.delete(g); // ✅ correct lowercase
+                selectedGenres.delete(g); 
                 const li = listItems.find(l => l.dataset.value === g);
                 if (li) li.querySelector("input").checked = false;
                 renderChips();
