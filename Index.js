@@ -11,6 +11,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static("./public"));
+
+const { ViewMovies } = require('./utils/ViewMovies')
+app.get('/View_Movies', ViewMovies)
+
+const { UpdateMovie }  = require('./utils/UpdateMovie');
+app.put('/movies/:id', UpdateMovie); 
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);
 })
