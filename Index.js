@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 
 app.use(express.static("./public"));
 
-const { ViewMovies } = require('./utils/ViewMovies')
-app.get('/View_Movies', ViewMovies)
+// const { ViewMovies } = require('./utils/ViewMovies')
+// app.get('/View_Movies', ViewMovies)
 
 const { UpdateMovie }  = require('./utils/UpdateMovie');
 app.put('/movies/:id', UpdateMovie); 

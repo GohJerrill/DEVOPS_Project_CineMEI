@@ -1,11 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const DATA_PATH = path.join(__dirname, '..', 'data', 'movies.json');
+const DATA_PATH = path.join(__dirname, 'Movie_Template.json');
 
 function UpdateMovie(req, res) {
   const id = String(req.params.id);
   const updatedMovie = req.body;
+
+  if (!updatedMovie.Title || !updatedMovie.Description) {
+    return res.status(400).json({ message: 'Invalid update data — missing fields.' });
+  }
+  
 
   fs.readFile(DATA_PATH, 'utf8', (err, data) => {
     if (err) return res.status(500).json({ message: 'Error reading movie data.' });

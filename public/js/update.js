@@ -10,7 +10,7 @@ function showMessage(type, text) {
   msg.className = `status ${type}`;
   msg.textContent = text;
 
-  
+
   setTimeout(() => {
     msg.className = 'status';
     msg.textContent = '';
@@ -29,7 +29,7 @@ fetch(`/movies/${movieId}`)
     document.getElementById('duration').value = movie.duration;
     document.getElementById('year').value = movie.year;
     document.getElementById('description').value = movie.description;
-    document.getElementById('poster').value = movie.poster;
+    document.getElementById('poster').value = movie.Image;
   })
   .catch(() => showMessage('error', 'Error loading movie data.'));
 
@@ -38,17 +38,17 @@ form.addEventListener('submit', e => {
   e.preventDefault();
 
   const updatedData = {
-    title: title.value.trim(),
-    ageRating: ageRating.value,
-    movieRating: Number(movieRating.value),
-    genre: genre.value.trim(),
-    duration: Number(duration.value),
-    year: Number(year.value),
-    description: description.value.trim(),
-    poster: poster.value.trim()
+    Title: title.value.trim(),
+    Age_Rating: ageRating.value,
+    Movie_Rating: Number(movieRating.value),
+    Genre: genre.value.trim(),
+    Duration: Number(duration.value),
+    Year: Number(year.value),
+    Description: description.value.trim(),
+    Image: poster.value.trim()
   };
 
-  
+
   if (!updatedData.title || !updatedData.genre || !updatedData.description) {
     showMessage('warning', 'Please fill in all required fields.');
     return;
@@ -64,22 +64,22 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  
+
   fetch(`/movies/${movieId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedData)
   })
-  .then(async res => {
-    const data = await res.json().catch(() => ({}));
+    .then(async res => {
+      const data = await res.json().catch(() => ({}));
 
-    if (res.ok) {
-      showMessage('success', data.message || 'Movie updated successfully!');
-    } else {
-      showMessage('error', data.message || 'Update failed.');
-    }
-  })
-  .catch(() => showMessage('error', 'Network or server error.'));
+      if (res.ok) {
+        showMessage('success', data.message || 'Movie updated successfully!');
+      } else {
+        showMessage('error', data.message || 'Update failed.');
+      }
+    })
+    .catch(() => showMessage('error', 'Network or server error.'));
 });
 
 

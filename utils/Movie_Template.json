@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": "101",
+    "Title": "Avengers: Endgame (Edited2)",
+    "Age_Rating": "PG13",
+    "Movie_Rating": 9,
+    "Genre": "Action",
+    "Duration": 181,
+    "Year": 2019,
+    "Description": "Updated description!",
+    "Image": "./images/endgame.jpg"
+  },
+  {
+    "id": "102",
+    "Title": "Inception",
+    "Age_Rating": "PG13",
+    "Movie_Rating": 8.8,
+    "Genre": "Sci-Fi",
+    "Duration": 148,
+    "Year": 2010,
+    "Description": "Dream within a dream story.",
+    "Image": "./images/inception.jpg"
+  }
+]
