@@ -1,4 +1,4 @@
-const Container = document.getElementById("Movies_Container");            
+const Container = document.getElementById("Movies_Container");
 const SearchInput = document.getElementById("search-input");
 const chipGroup = document.querySelector(".Filter_Buttons");
 let selectedGenres = new Set();
