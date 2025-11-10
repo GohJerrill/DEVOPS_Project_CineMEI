@@ -1,5 +1,5 @@
 
-const Container = document.getElementById("Movies_Container");
+      const Container = document.getElementById("Movies_Container");
 const SearchInput = document.getElementById("search-input");
 const chipGroup = document.querySelector(".Filter_Buttons");
 let selectedGenres = new Set();
@@ -58,7 +58,7 @@ function RenderMovie(Movies) {
     }
 }
 
-
+// Checking and applying all the relevant filters that the user type
 function applyAllFilters() {
 
     let list = [...AllMovies];
@@ -108,6 +108,7 @@ function applyAllFilters() {
 }
 
 
+// Initial fetch of the API Route, allows the user to get the data and use it //
 async function DisplayMovies() {
 
     try {
@@ -135,6 +136,7 @@ async function DisplayMovies() {
 
 }
 
+// For the dropdown of "All" and "Best Rated"
 document.querySelectorAll(".dropdown").forEach(dropdown => {
     const select = dropdown.querySelector(".select");
     const caret = dropdown.querySelector(".caret");
@@ -171,6 +173,7 @@ document.querySelectorAll(".dropdown").forEach(dropdown => {
 });
 
 
+// Settle the chip logic of one highlighting when one is clicked //
 if (chipGroup) {
     const chips = chipGroup.querySelectorAll("button");
     chips.forEach(btn => {
@@ -198,6 +201,7 @@ if (chipGroup) {
 SearchInput.addEventListener("input", applyAllFilters);
 
 
+// The genre filter logic
 function GenreFilter() {
     const multi = document.querySelector(".genre-multiselect");
     if (!multi) return;
@@ -228,7 +232,7 @@ function GenreFilter() {
         });
     });
 
-
+    // The chips in the genre bar, allow the user to delete and click on genre they want //
     function renderChips() {
         chipsContainer.innerHTML = "";
         const all = Array.from(selectedGenres);
@@ -252,7 +256,7 @@ function GenreFilter() {
         requestAnimationFrame(checkOverflow); 
     }
 
-
+    // Check the if the genre chip overflow, if have right it will state +1, +2 etc...
     function checkOverflow() {
         const chips = Array.from(chipsContainer.children);
         if (chips.length === 0) return;

@@ -582,7 +582,7 @@ body {
     line-height: 1.6;
 }
 
-
+/* ========================= Making it responsive to devices  ====================== */
 
 @media (max-width: 1024px) {
 
@@ -619,7 +619,7 @@ body {
 
 }
 
-/* Making it responsive to devices */
+
 
 @media (min-width: 1280px) {
 
