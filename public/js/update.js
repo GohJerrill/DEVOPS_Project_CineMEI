@@ -1,3 +1,4 @@
+// Testing Husky Commitlint Hook
 const form = document.getElementById('updateForm');
 const msg = document.getElementById('statusMsg');
 const cancelBtn = document.getElementById('cancelBtn');
