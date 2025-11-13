@@ -14,6 +14,9 @@ app.use(express.static("./public"));
 
 const { ViewMovies } = require('./utils/ViewMovies')
 app.get('/View_Movies', ViewMovies)
+//add api for movie review
+const { addMovie } = require('./utils/AddMovieReview')
+app.post('/add-movie-review', addMovie)
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + "/public/" + startPage);

@@ -526,7 +526,7 @@ body {
     font-size: 14px;
 }
 
-.overlay-info span {
+.overlay-info div {
     font-weight: 700;
     color: #fff;
 }

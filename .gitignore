@@ -1,4 +1,8 @@
 #JSON Database Files
+#node_mod
+node_modules
+
+#JSON Data
 utils/MovieDatabase.json
 
 # Logs

@@ -21,15 +21,16 @@
 
     <!-- Navbar + Into baby -->
     <div class='navbar'>
-        <img class="Logo" src= ./images/Logo2.png alt="" />
+        <img class="Logo" src=./images/Logo2.png alt="" />
 
-        <button class="Add_Movie_Button">
-            <div class="flex">
-                <img class="Add" src="./images/plus.png" alt="" />
-                <p class="button_Text">Add Movie</p>
+        <!--Onclick, goes to another page to add new movie review HEHEHEHAW-->
+        <a href="AddMovies.html" style="text-decoration: none;"><button class="Add_Movie_Button">
+                <div class="flex">
+                    <img class="Add" src="./images/plus.png" alt="" />
+                    <p class="button_Text">Add Movie</p>
 
-            </div>
-        </button>
+                </div>
+            </button></a>
     </div>
 
     <!-- First set of filter, the search and the movie rating -->
@@ -44,7 +45,7 @@
         <div class="dropdown">
 
             <div class="select">
-                <span class="selected">All</span>
+                <div class="selected">All</div>
                 <div class="caret"></div>
             </div>
 
@@ -73,8 +74,8 @@
         <div class="genre-multiselect">
             <div class="genre-input" tabindex="0">
                 <div class="chips-container"></div>
-                <span class="placeholder">Select genres...</span>
-                <span class="caret"></span>
+                <div class="placeholder">Select genres...</div>
+                <div class="caret"></div>
             </div>
 
             <ul class="genre-options">
