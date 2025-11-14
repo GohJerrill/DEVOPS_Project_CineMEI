@@ -4,7 +4,8 @@
   "description": "Group 2 DEVOPS Project about Movies",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,11 @@
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
     "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "husky": "^9.1.7"
   },
   "type": "commonjs"
 }

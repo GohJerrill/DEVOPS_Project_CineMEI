@@ -1,3 +1,5 @@
+utils/MovieDatabase.json
+.husky/
 #JSON Database Files
 #node_mod
 node_modules

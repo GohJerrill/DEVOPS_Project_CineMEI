@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMEI</title>
+  <link rel="stylesheet" href="./css/update.css">
+  <link rel="icon" type="image/png" href="./images/Logo2.png">
+  <script defer src="./js/update.js"></script>
+</head>
+
+<body>
+  <header class="top-bar">
+    <div class="logo-container">
+      <img src="./images/Logo2.png" alt="CineMEI Logo" class="logo">
+      <h1 class="app-title">CineMEI</h1>
+    </div>
+    <button class="back-btn" onclick="window.location.href='index.html'">← Back to movies</button>
+  </header>
+
+
+  <main class="edit-container">
+    <section class="edit-form">
+      <h2>🎬 Edit Movie Details</h2>
+      <form id="updateForm">
+        <div class="form-row">
+          <label for="movieId">Movie ID:</label>
+          <input id="movieId" type="number">
+        </div>
+
+        <div class="form-row">
+          <label for="title">Movie Title:</label>
+          <input id="title" type="text">
+        </div>
+
+        <div class="form-row half">
+          <div>
+            <label for="ageRating">Age Rating:</label>
+            <select id="ageRating">
+              <option>G</option>
+              <option>PG</option>
+              <option>PG13</option>
+              <option>M18</option>
+              <option>R21</option>
+            </select>
+          </div>
+          <div>
+            <label for="movieRating">Movie Rating:</label>
+            <input id="movieRating" type="number">
+          </div>
+        </div>
+
+        <div class="form-row half">
+          <div>
+            <label for="genre">Genre:</label>
+            <select id="genre">
+              <option>Action</option>
+              <option>Comedy</option>
+              <option>Drama</option>
+              <option>Fantasy</option>
+              <option>Horror</option>
+              <option>Romance</option>
+              <option>Sci-Fi</option>
+            </select>
+          </div>
+          <div>
+            <label for="duration">Duration (mins):</label>
+            <input id="duration" type="number">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="year">Year of Release:</label>
+          <input id="year" type="number">
+        </div>
+
+        <div class="form-row">
+          <label for="description">Description:</label>
+          <textarea id="description"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Poster:</label>
+          <div class="poster-upload">
+            <img id="posterPreview" src="./images/placeholder.png" alt="Poster Preview">
+            <button type="button" id="changePosterBtn">Change Poster</button>
+            <input type="file" id="posterFile" accept="image/*" style="display:none;">
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="save-btn">Save Changes</button>
+          <button type="button" class="cancel-btn" id="cancelBtn">Cancel Edit</button>
+        </div>
+
+        <p id="statusMsg" class="status"></p>
+      </form>
+    </section>
+
+    <aside class="preview">
+      <h3 id="previewTitle">Movie Title</h3>
+      <span id="previewAge" class="age-badge">--</span>
+      <img id="previewPoster" src="./images/placeholder.png" alt="Poster">
+      <ul class="details">
+        <li><span>⭐</span> <span id="previewRating">0/10</span></li>
+        <li><span>🎭</span> <span id="previewGenre">--</span></li>
+        <li><span>⏱️</span> <span id="previewDuration">0 mins</span></li>
+        <li><span>📅</span> <span id="previewYear">----</span></li>
+      </ul>
+      <p id="previewDesc">Movie description will appear here.</p>
+    </aside>
+  </main>
+</body>
+
+</html>
