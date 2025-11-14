@@ -21,15 +21,16 @@
 
     <!-- Navbar + Into baby -->
     <div class='navbar'>
-        <img class="Logo" src= ./images/Logo2.png alt="" />
+        <img class="Logo" src=./images/Logo2.png alt="" />
 
-        <button class="Add_Movie_Button">
-            <div class="flex">
-                <img class="Add" src="./images/plus.png" alt="" />
-                <p class="button_Text">Add Movie</p>
+        <!--Onclick, goes to another page to add new movie review HEHEHEHAW-->
+        <a href="AddMovies.html" style="text-decoration: none;"><button class="Add_Movie_Button">
+                <div class="flex">
+                    <img class="Add" src="./images/plus.png" alt="" />
+                    <p class="button_Text">Add Movie</p>
 
-            </div>
-        </button>
+                </div>
+            </button></a>
     </div>
 
     <!-- First set of filter, the search and the movie rating -->
@@ -38,13 +39,13 @@
 
         <div class="search">
             <span class="search-icon material-symbols-outlined">search</span>
-            <input class="search-input" type="search" placeholder="Search for any movies...">
+            <input id ="search-input" type="search" placeholder="Search for any movies...">
         </div>
 
         <div class="dropdown">
 
             <div class="select">
-                <span class="selected">All</span>
+                <div class="selected">All</div>
                 <div class="caret"></div>
             </div>
 
@@ -73,19 +74,24 @@
         <div class="genre-multiselect">
             <div class="genre-input" tabindex="0">
                 <div class="chips-container"></div>
-                <span class="placeholder">Select genres...</span>
-                <span class="caret"></span>
+                <div class="placeholder">Select genres...</div>
+                <div class="caret"></div>
             </div>
 
             <ul class="genre-options">
-                <li data-value="Comedy"><input type="checkbox"> Comedy</li>
-                <li data-value="Romance"><input type="checkbox"> Romance</li>
-                <li data-value="Horror"><input type="checkbox"> Horror</li>
                 <li data-value="Action"><input type="checkbox"> Action</li>
+                <li data-value="Animation"><input type="checkbox"> Animation</li>
+                <li data-value="Comedy"><input type="checkbox"> Comedy</li>
+                <li data-value="Crime"><input type="checkbox"> Crime</li>
                 <li data-value="Drama"><input type="checkbox"> Drama</li>
+                <li data-value="Fantasy"><input type="checkbox">Fantasy</li>
+                <li data-value="Historical"><input type="checkbox">Historical</li>
+                <li data-value="Horror"><input type="checkbox">Horror</li>
+                <li data-value="Romance"><input type="checkbox">Romance</li>
+                <li data-value="Sci-Fi"><input type="checkbox">Sci-Fi</li>
+                <li data-value="Thriller"><input type="checkbox">Thriller</li>
                 <li data-value="Western"><input type="checkbox">Western</li>
-                <li data-value="War"><input type="checkbox">War</li>
-                <li data-value="History"><input type="checkbox">History</li>
+                <li data-value="Musical"><input type="checkbox">Musical</li>
             </ul>
         </div>
 
@@ -95,133 +101,8 @@
 
     <div class="Movie_Time_HEHE">
 
-        <div class="Movies_Container">
-
-
-
-            <div class="box">
-                <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
-
-                <div class="box-img">
-                    <img src="./images/Superman Baby.jpg" alt="">
-                </div>
-
-
-                <div class="overlay">
-                    <h3 class="overlay-title">Superman 2025</h3>
-                    <p class="overlay-desc">
-                        Superman saves the world again, but this time faces his toughest challenge yet.
-                    </p>
-                    <p><span class="Duration">Duration:</span> 120 mins</p>
-                    <p><span class="Genre">Genre:</span> Action</p>
-                </div>
-
-                <div class="Stars_Rating">
-                    <div class="Stars">
-                        <p>7</p>
-                        <img src="./images/star.png" alt="">
-                    </div>
-                    <p class="Rating">PG13</p>
-                </div>
-
-                <h3 class="Title">Superman 2025</h3>
-                <span class="year">2025</span>
-            </div>
-
-
-            <div class="box">
-
-                <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
-
-
-                <div class="box-img">
-                    <img src="./images/Dark Knight.jpg" alt="">
-                </div>
-
-                <div class="overlay">
-                    <h3 class="overlay-title">Dark Knight</h3>
-                    <p class="overlay-desc">
-                        Bruce Wayne come again as the batman to save Gotham, this time he faces the menacing and
-                        sedastic Joeker, who will anything to make the world laugh
-                    </p>
-                    <p><span class="Duration">Duration:</span> 120 mins</p>
-                    <p><span class="Genre">Genre:</span> Action</p>
-                </div>
-
-                <div class="Stars_Rating">
-                    <div class="Stars">
-                        <p>9</p>
-                        <img src="./images/star.png" alt="">
-                    </div>
-                    <p class="Rating">M18</p>
-                </div>
-
-                <h3 class="Title">The Dark Knight</h3>
-                <span class="year">2014</span>
-            </div>
-
-
-            <div class="box">
-
-                <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
-
-
-                <div class="box-img">
-                    <img src="./images/Mario.jpg" alt="">
-                </div>
-
-                <div class="overlay">
-                    <h3 class="overlay-title">Superman 2025</h3>
-                    <p class="overlay-desc">
-                        It's a me mario
-                    </p>
-                    <p><span class="Duration">Duration:</span> 120 mins</p>
-                    <p><span class="Genre">Genre:</span> Action</p>
-                </div>
-
-                <div class="Stars_Rating">
-                    <div class="Stars">
-                        <p>8</p>
-                        <img src="./images/star.png" alt="">
-                    </div>
-                    <p class="Rating">G</p>
-                </div>
-
-                <h3 class="Title">Super Mario Bros</h3>
-                <span class="year">2024</span>
-            </div>
-
-            <div class="box">
-
-                <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
-
-
-                <div class="box-img">
-                    <img src="./images/Dunkirk.jpg" alt="">
-                </div>
-
-                <div class="overlay">
-                    <h3 class="overlay-title">Dunkirk</h3>
-                    <p class="overlay-desc">
-                        The allies are in a strut, the German launch their blitkreig attack into the heart of France
-                        encircling the Allied forces. Can they escape in the beach of Dunkirk?
-
-                    </p>
-                    <p><span class="Duration">Duration:</span> 120 mins</p>
-                    <p><span class="Genre">Genre:</span> Action</p>
-                </div>
-
-                <div class="Stars_Rating">
-                    <div class="Stars">
-                        <p>6</p>
-                        <img src="./images/star.png" alt="">
-                    </div>
-                    <p class="Rating">M18</p>
-                </div>
-
-                <h3 class="Title">Dunkirk</h3>
-                <span class="year">2017</span>
-            </div>
+        <div id = "Movies_Container">
+        
 
         </div>
     </div>

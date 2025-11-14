@@ -1,0 +1,185 @@
+body {
+    background-color: #131212
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 70px 0px 70px;
+    background-color: #3E3D3D;
+    height: 140px;
+}
+
+.Logo {
+    height: 100px;
+    width: 100px;
+    border-radius: 25px;
+}
+
+.View_Movie_Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #555454;
+    border: 1.5px solid #6E6D6D;
+    border-radius: 50px;
+    padding: 17px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.View_Movie_Button:hover {
+    background-color: #6E6D6D;
+    transform: scale(1.03);
+}
+
+.Centralize {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Submit_Button {
+    gap: 10px;
+    background-color: #26A1F4;
+    border: 1.5px solid #2D6FB3;
+    border-radius: 50px;
+    padding: 12px 26px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Submit_Button:hover {
+    background-color: #26A1F4;
+    opacity: 0.8;
+    transform: scale(1.03);
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.View {
+    height: 18px;
+    width: 18px;
+}
+
+.Submit {
+    height: 18px;
+    width: 24px;
+}
+
+.button_Text {
+    color: white;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.titlespacing {
+    margin-top: 30px;
+}
+
+.minispacing {
+    margin-top: 10px;
+}
+
+.spacing {
+    margin-top: 20px;
+}
+
+.form {
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.formmarign {
+    margin-left: 50px;
+}
+
+.formtitle {
+    font-size: 28px;
+}
+
+.forminput {
+    font-size: 19px;
+    border-radius: 8px;
+    height: 40px;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    background-color: #d9d9d9;
+}
+
+#forminput1 {
+    width: 480px;
+}
+
+/*some width difference to the figma cause reduces whitespace*/
+
+#forminput2,
+#forminput3,
+#forminput4,
+#forminput5,
+#forminput6 {
+    width: 130px;
+}
+
+.textarea {
+    width: 97%;
+    height: 20vh;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    background-color: #d9d9d9;
+    font-size: 19px;
+    resize: none;
+}
+
+.ImgBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 97%;
+    height: 40vh;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: #d9d9d9;
+    font-size: 22px;
+    resize: none;
+    cursor: pointer;
+}
+
+.detail8 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.forminput8 {
+    color: #131212;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.Image {
+    height: 100px;
+    width: 100px;
+}
