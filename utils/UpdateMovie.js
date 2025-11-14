@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DATA_PATH = path.join(__dirname, 'Movie_Template.json');
+const DATA_PATH = path.join(__dirname, 'MovieDatabase.json');
 
 function UpdateMovie(req, res) {
   const id = String(req.params.id);

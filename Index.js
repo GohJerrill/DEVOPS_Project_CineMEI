@@ -7,8 +7,9 @@ const PORT = process.env.PORT || 5050
 
 var startPage = "Index.html";
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+app.use(bodyParser.json({ limit: '10mb' }));
+
 
 app.use(express.static("./public"));
 
