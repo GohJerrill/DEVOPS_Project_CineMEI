@@ -4,7 +4,7 @@ Age Rating: Accept only values from dropdown, but check for null
 Movie Rating: Only 1-10, must be float of 0.1 (rounds up if 2 d.p or more), check for null
 Genre: Same like age rating
 Movie Duration: No negative or 0 minute movies, check for null, and must be integer
-Year: Only from this year (2025) to 1970, check for null
+Year: Only from this year (2025) to 1970, check for null, and must be integer
 Description: No validation, but check for null
 Movie Image: Any image type actually (so gif, jpg, png, jpeg, etc.)
 */
@@ -52,14 +52,16 @@ function submitNewReview() {
     } else {
         jsonData.Movie_Rating = Math.round(jsonData.Movie_Rating * 10) / 10;
     }
-    if (typeof jsonData.Duration == "float") {
+    jsonData.Duration = Number(jsonData.Duration) // makes sure duration is number
+    if (!Number.isInteger(jsonData.Duration)) { // edited logic
         alert('Movie Duration must be integer!');
         return; // Stop execution if validation fails
     } else if (jsonData.Duration <= 0) {
         alert('Movie Duration cannot be negative or zero minutes!');
         return; // Stop execution if validation fails
     }
-    if (typeof jsonData.Year == "float") {
+    jsonData.Year = Number(jsonData.Year) // makes sure year is number
+    if (!Number.isInteger(jsonData.Year)) { // edited logic
         alert('Movie Year must be integer!');
         return; // Stop execution if validation fails
     } else if (jsonData.Year < 1970 || jsonData.Year > 2025) {
@@ -73,7 +75,6 @@ function submitNewReview() {
     // Define what happens when the server responds
     request.onload = function () {
         response = JSON.parse(request.responseText); // Parse JSON response
-        console.log(response)
         // If no error message is returned → success
         if (response.message == undefined) {
             alert('Added ' + jsonData.Title + ' as a new movie review!');
