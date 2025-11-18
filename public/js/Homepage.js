@@ -32,9 +32,8 @@ function RenderMovie(Movies) {
         Container.innerHTML += `
 
         <div class="box">
-            <img class="edit-icon" src="./images/edit_icon.png" alt="Edit">
             <div class="box-img">
-            <img src="./images/${M.Image}" alt="">
+            <img src="${M.Image}" alt="">
             </div>
             <div class="overlay">
             <h3 class="overlay-title">${M.Title}</h3>
