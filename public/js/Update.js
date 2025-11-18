@@ -5,8 +5,15 @@ const cancelBtn = document.getElementById('cancelBtn');
 const changePosterBtn = document.getElementById("changePosterBtn");
 const posterFile = document.getElementById("posterFile");
 const posterPreview = document.getElementById("posterPreview");
-const previewPoster = document.getElementById("previewPoster"); 
+const previewPoster = document.getElementById("previewPoster");
 
+
+// Initial Preview Values for DROPDOWNS ONLY 
+// (since they do not trigger events on load, need manually sync their default values)
+previewAge.textContent = ageRating.value;
+previewGenre.textContent = genre.value;
+
+// Poster upload handling (Ensure that selected image is displayed on both left and right hand panel)
 changePosterBtn.addEventListener("click", () => {
   posterFile.click();
 });
@@ -20,9 +27,10 @@ posterFile.addEventListener("change", () => {
     posterPreview.src = reader.result;
     previewPoster.src = reader.result;
   };
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(file); // converts image to base64 string
 });
 
+// Status message handler (to show success/error/warning alerts)
 function showMessage(type, text) {
   msg.className = `status ${type}`;
   msg.textContent = text;
@@ -33,6 +41,7 @@ function showMessage(type, text) {
   }, 3000);
 }
 
+// Live preview sync (when admin edits fields, will update on right side panel in real-time)
 title.addEventListener("input", () => {
   previewTitle.textContent = title.value.trim() || "Movie Title";
 });
@@ -63,6 +72,8 @@ description.addEventListener("input", () => {
   previewDesc.textContent = description.value.trim() || "Movie description will appear here.";
 });
 
+
+// Form submission & frontend validation (validates all fields before sending req to backend)
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -74,6 +85,8 @@ form.addEventListener('submit', (e) => {
   const ratingValue = Number(movieRating.value);
   const durationValue = Number(duration.value);
   const yearValue = Number(year.value);
+
+  // Required field validation
 
   if (!movieId) {
     showMessage('warning', 'Movie ID is required.');
@@ -130,6 +143,12 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
+  if (posterPreview.src.includes("placeholder.png")) {
+    showMessage('warning', 'Poster image is required.');
+    return;
+  }
+
+
   const updatedData = {
     Title: titleValue,
     Age_Rating: ageValue,
@@ -141,6 +160,7 @@ form.addEventListener('submit', (e) => {
     Image: posterPreview.src
   };
 
+  // Send req to backend, updates the JSON file, and returns success/error accordingly
   fetch(`/movies/${movieId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
