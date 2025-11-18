@@ -16,24 +16,29 @@
       <img src="./images/Logo2.png" alt="CineMEI Logo" class="logo">
       <h1 class="app-title">CineMEI</h1>
     </div>
-    <button class="back-btn" onclick="window.location.href='index.html'">← Back to movies</button>
+    <button class="back-btn" onclick="window.location.href='Index.html'">← Back to movies</button>
   </header>
 
 
   <main class="edit-container">
+    <!-- Left side panel (Movie edit form) -->
     <section class="edit-form">
       <h2>🎬 Edit Movie Details</h2>
       <form id="updateForm">
+
+        <!-- Movie ID Input (which movie to update) -->
         <div class="form-row">
           <label for="movieId">Movie ID:</label>
           <input id="movieId" type="number">
         </div>
 
+        <!-- Movie title input -->
         <div class="form-row">
           <label for="title">Movie Title:</label>
           <input id="title" type="text">
         </div>
 
+        <!-- Age rating and Movie rating row -->
         <div class="form-row half">
           <div>
             <label for="ageRating">Age Rating:</label>
@@ -51,6 +56,7 @@
           </div>
         </div>
 
+        <!-- Genre and Duration row -->
         <div class="form-row half">
           <div>
             <label for="genre">Genre:</label>
@@ -76,34 +82,41 @@
           </div>
         </div>
 
+        <!-- Movie release year -->
         <div class="form-row">
           <label for="year">Year of Release:</label>
           <input id="year" type="number">
         </div>
 
+        <!-- Description text box -->
         <div class="form-row">
           <label for="description">Description:</label>
           <textarea id="description"></textarea>
         </div>
 
+        <!-- Poster upload section -->
         <div class="form-row">
           <label>Poster:</label>
           <div class="poster-upload">
             <img id="posterPreview" src="./images/placeholder.png" alt="Poster Preview">
+            <!-- Triggers file selection -->
             <button type="button" id="changePosterBtn">Change Poster</button>
             <input type="file" id="posterFile" accept="image/*" style="display:none;">
           </div>
         </div>
 
+        <!-- Save and Cancel buttons -->
         <div class="form-buttons">
           <button type="submit" class="save-btn">Save Changes</button>
           <button type="button" class="cancel-btn" id="cancelBtn">Cancel Edit</button>
         </div>
 
+        <!-- Success/Error messages -->
         <p id="statusMsg" class="status"></p>
       </form>
     </section>
 
+    <!-- Right side panel (Live preview) -->
     <aside class="preview">
       <h3 id="previewTitle">Movie Title</h3>
       <span id="previewAge" class="age-badge">--</span>
