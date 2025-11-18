@@ -2,8 +2,6 @@
 
 const dropdowns = document.querySelectorAll(".dropdown");
 
-//new line to test lazygit
-
 const chipGroup = document.querySelector('.Filter_Buttons');
 const chips = chipGroup.querySelectorAll('button');
 
