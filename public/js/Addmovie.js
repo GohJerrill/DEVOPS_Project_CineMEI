@@ -1,5 +1,3 @@
-//gitkraken demo LESSGO
-
 /*
 Movie Name: No validation, but check for null
 Age Rating: Accept only values from dropdown, but check for null
